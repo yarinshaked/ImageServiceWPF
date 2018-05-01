@@ -10,6 +10,7 @@ namespace ImageServiceWPF
     {
         string ServerIP { get; set; }
         int ServerPort { get; set; }
+        //more things
         
     }
 }
