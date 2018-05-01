@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\USER\source\repos\ImageServiceWPF\ImageServiceWPF\App.xaml
-2-649523810
+4753687903
 
-13-686998653
+15-1906062283
 131569487696
-MainWindow.xaml;SettingsWindow.xaml;
+Controls\LogView.xaml;Controls\SettingsView.xaml;MainWindow.xaml;SettingsWindow.xaml;
 
-False
+True
 

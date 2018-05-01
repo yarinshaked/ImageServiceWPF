@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ImageServiceWPF"
+        xmlns:controls="clr-namespace:ImageServiceWPF.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Image Service" Height="450" Width="800">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Settings">
+                <controls:SettingsControl>
+                    
+                </controls:SettingsControl>
+            </TabItem>
+            <TabItem Header="Logs">
+                <controls:LogControl>
+
+                </controls:LogControl>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
