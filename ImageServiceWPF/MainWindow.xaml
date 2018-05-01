@@ -9,14 +9,14 @@
     <Grid>
         <TabControl>
             <TabItem Header="Settings">
-                <controls:SettingsControl>
+                <controls:SettingsView>
                     
-                </controls:SettingsControl>
+                </controls:SettingsView>
             </TabItem>
             <TabItem Header="Logs">
-                <controls:LogControl>
+                <controls:LogsView>
 
-                </controls:LogControl>
+                </controls:LogsView>
             </TabItem>
         </TabControl>
     </Grid>
