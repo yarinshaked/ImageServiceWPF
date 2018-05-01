@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\USER\source\repos\ImageServiceWPF\ImageServiceWPF\obj\Debug\
+C:\Users\IEUser\source\repos\ImageServiceWPF\ImageServiceWPF\obj\Debug\
 ImageServiceWPF
 none
 false
 DEBUG;TRACE
-C:\Users\USER\source\repos\ImageServiceWPF\ImageServiceWPF\App.xaml
-2-649523810
+C:\Users\IEUser\source\repos\ImageServiceWPF\ImageServiceWPF\App.xaml
+3849902938
 
-13-686998653
-131569487696
-MainWindow.xaml;SettingsWindow.xaml;
+17-1504217127
+14174273741
+Controls\LogsView.xaml;Controls\SettingsView.xaml;MainWindow.xaml;
 
 True
 

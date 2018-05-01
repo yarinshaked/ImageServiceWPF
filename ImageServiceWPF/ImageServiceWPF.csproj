@@ -64,8 +64,10 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\IModel.cs" />
+    <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogsModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
+    <Compile Include="VModel\ISettingsViewModel.cs" />
     <Compile Include="VModel\LogsViewModel.cs" />
     <Compile Include="VModel\SettingsViewModel.cs" />
     <Compile Include="VModel\ViewModel.cs" />

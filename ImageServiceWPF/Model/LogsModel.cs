@@ -9,6 +9,7 @@ namespace ImageServiceWPF.Model
 {
     class LogsModel : IModel
     {
+        /*
         public string ServerIP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int ServerPort { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -28,6 +29,11 @@ namespace ImageServiceWPF.Model
         }
 
         public void write(string command)
+        {
+            throw new NotImplementedException();
+        }
+        */
+        public void InfoFromService()
         {
             throw new NotImplementedException();
         }

@@ -8,11 +8,14 @@ namespace ImageServiceWPF.Model
 {
     interface IModel
     {
+        /*
         string ServerIP { get; set; }
         int ServerPort { get; set; }
         void connect(string ip, int port);
         void write(string command);
         string read();
         void disconnect();
+        */
+        void InfoFromService();
     }
 }
