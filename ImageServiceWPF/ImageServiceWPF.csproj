@@ -65,6 +65,11 @@
     <Compile Include="Controls\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="JSonTypes\JSonParse.cs" />
+    <Compile Include="JSonTypes\LogInfo.cs" />
+    <Compile Include="JSonTypes\LogJSon.cs" />
+    <Compile Include="JSonTypes\SettingsInfo.cs" />
+    <Compile Include="JSonTypes\SettingsJSon.cs" />
     <Compile Include="Model\ILogsModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogsModel.cs" />

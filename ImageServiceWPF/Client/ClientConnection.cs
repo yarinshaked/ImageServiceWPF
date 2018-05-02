@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using ImageServiceWPF.JSonTypes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ImageServiceWPF.Client
 {
@@ -13,8 +16,10 @@ namespace ImageServiceWPF.Client
     {
         private TcpClient client;
         private IPEndPoint ep;
+        NetworkStream stream;
+        JSonParse parser;
 
-        public void connect()
+        public void Connect()
         {
             Task task = new Task(() =>
             {
@@ -23,22 +28,7 @@ namespace ImageServiceWPF.Client
                     ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
                     client = new TcpClient();
                     client.Connect(ep);
-                    using (NetworkStream stream = client.GetStream())
-                    using (BinaryReader reader = new BinaryReader(stream))
-                    using (BinaryWriter writer = new BinaryWriter(stream))
-                    {
-                        //writer.Write("GetAppConfig");
-
-                        //change this to JSON
-                        /*
-                        this.OutputDirectory = reader.ReadString();
-                        this.SourceName = reader.ReadString();
-                        this.LogName = reader.ReadString();
-                        this.ThumbnailSize = reader.ReadInt32();
-                        */
-                    }
-
-
+                    stream = client.GetStream();
                 }
                 catch (Exception e)
                 {
@@ -48,7 +38,7 @@ namespace ImageServiceWPF.Client
             task.Start();
         }
 
-        public void disconnect()
+        public void Disconnect()
         {
             try
             {
@@ -59,14 +49,37 @@ namespace ImageServiceWPF.Client
             }
         }
 
-        public string read()
+        public JObject Read()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    string jSonString = reader.ReadString();
+                    JObject info = JObject.Parse(jSonString);
+                    return info;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
 
-        public void write(string toWrite)
+        public void Write(object toWrite)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (BinaryWriter writer = new BinaryWriter(stream))
+                {
+                    string stringToWrite = parser.FromObjToString(toWrite);
+                    writer.Write(stringToWrite);
+                }
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
