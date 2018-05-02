@@ -12,10 +12,15 @@ namespace ImageServiceWPF.VModel
     class SettingsViewModel : ISettingsViewModel
     {
         private ISettingsModel model;
+        //public ICommand RemoveCommand;
 
         public SettingsViewModel()
         {
             this.model = new SettingsModel();
+            this.model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
+            {
+                this.NotifyPropertyChanged("VM_" + e.PropertyName);
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -24,34 +29,22 @@ namespace ImageServiceWPF.VModel
 
         public string VM_OutputDirectory
         {
-            get
-            {
-                return this.model.OutputDirectory;
-            }
+            get { return this.model.OutputDirectory; }
         }
 
         public string VM_SourceName
         {
-            get
-            {
-                return this.model.SourceName;
-            }
+            get { return this.model.SourceName; }
         }
 
         public string VM_LogName
         {
-            get
-            {
-                return this.model.SourceName;
-            }
+            get { return this.model.LogName; }
         }
 
         public int VM_ThumbnailSize
         {
-            get
-            {
-                return this.model.ThumbnailSize;
-            }
+            get { return this.model.ThumbnailSize; }
         }
 
         public string SelectedHandler
@@ -67,7 +60,7 @@ namespace ImageServiceWPF.VModel
             }
         }
 
-        private void OnClick(object obj)
+        private void OnRemove(object obj)
         {
             //send to server that the handler was removed
             this.handlers.Remove(selectedHandler);

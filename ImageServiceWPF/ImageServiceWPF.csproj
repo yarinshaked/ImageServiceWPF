@@ -63,6 +63,7 @@
     <Compile Include="Controls\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ILogsModel.cs" />
     <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogsModel.cs" />

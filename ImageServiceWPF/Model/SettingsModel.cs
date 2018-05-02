@@ -22,7 +22,10 @@ namespace ImageServiceWPF.Model
 
         public void NotifyPropertyChanged(string propName)
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            if (PropertyChanged != null)
+            {
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            }
         }
         public string OutputDirectory
         {
