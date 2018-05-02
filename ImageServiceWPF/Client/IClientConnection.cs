@@ -12,6 +12,6 @@ namespace ImageServiceWPF.Client
         void Connect();
         void Disconnect();
         void Write(object toWrite);
-        JObject Read();
+        object Read();
     }
 }

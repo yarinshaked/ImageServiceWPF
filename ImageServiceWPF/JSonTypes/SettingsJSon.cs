@@ -9,21 +9,31 @@ namespace ImageServiceWPF.JSonTypes
 {
     class SettingsJSon : JSonParse
     {
+        private SettingsInfo info;
+
+        public SettingsJSon()
+        {
+            info = new SettingsInfo();
+        }
         public string FromObjToString(object toParse)
         {
             JObject settingsObj = new JObject();
-            //settingsObj["OutputDirectory] = 
+            settingsObj["OutputDirectory"] = info.OutputDirectory;
+            settingsObj["SourceName"] = info.SourceName;
+            settingsObj["LogName"] = info.LogName;
+            settingsObj["ThumbnailSize"] = info.ThumbnailSize;
+            return settingsObj.ToString();
         }
 
         public object FromStringToObj(string toParse)
         {
             //SettingsInfo info = new SettingsInfo
             JObject settingsObj = JObject.Parse(toParse);
-            SettingsInfo info = new SettingsInfo();
-            string outputDirec = (string)settingsObj["OutputDirectory"];
-            string sourceName = (string)settingsObj["SourceName"];
-            string logName = (string)settingsObj["LogName"];
-            int thumbSize = (int)settingsObj["ThumbnailSize"];            
+            info.OutputDirectory = (string)settingsObj["OutputDirectory"];
+            info.SourceName = (string)settingsObj["SourceName"];
+            info.LogName = (string)settingsObj["LogName"];
+            info.ThumbnailSize = (int)settingsObj["ThumbnailSize"];
+            return this.info;
         }
     }
 }

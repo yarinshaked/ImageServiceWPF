@@ -49,15 +49,17 @@ namespace ImageServiceWPF.Client
             }
         }
 
-        public JObject Read()
+        public object Read()
         {
             try
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
                     string jSonString = reader.ReadString();
-                    JObject info = JObject.Parse(jSonString);
-                    return info;
+                    //if log or service
+                    //parser = new SettingsInfo()
+                    //parser = new LogInfo()
+                    return parser.FromStringToObj(jSonString);
                 }
             }
             catch (Exception e)
