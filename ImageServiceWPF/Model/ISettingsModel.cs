@@ -15,6 +15,6 @@ namespace ImageServiceWPF.Model
         string SourceName { get; set; }
         string LogName { get; set; }
         int ThumbnailSize { get; set; }
-        ObservableCollection<string> handlers { get; set; };
+        //ObservableCollection<string> handlers { get; set; }
     }
 }

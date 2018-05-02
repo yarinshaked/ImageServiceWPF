@@ -57,6 +57,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Client\ClientConnection.cs" />
+    <Compile Include="Client\IClientConnection.cs" />
     <Compile Include="Controls\LogsView.xaml.cs">
       <DependentUpon>LogsView.xaml</DependentUpon>
     </Compile>
@@ -64,14 +66,12 @@
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\ILogsModel.cs" />
-    <Compile Include="Model\IModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogsModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="VModel\ISettingsViewModel.cs" />
     <Compile Include="VModel\LogsViewModel.cs" />
     <Compile Include="VModel\SettingsViewModel.cs" />
-    <Compile Include="VModel\ViewModel.cs" />
     <Page Include="Controls\LogsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

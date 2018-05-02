@@ -12,20 +12,20 @@ namespace ImageServiceWPF.VModel
     class SettingsViewModel : ISettingsViewModel
     {
         private ISettingsModel model;
+        private ObservableCollection<string> handlers;
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string selectedHandler;
         //public ICommand RemoveCommand;
 
         public SettingsViewModel()
         {
             this.model = new SettingsModel();
+            handlers = new ObservableCollection<string>();
             this.model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 this.NotifyPropertyChanged("VM_" + e.PropertyName);
             };
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private ObservableCollection<string> handlers = new ObservableCollection<string>();
-        private string selectedHandler;
 
         public string VM_OutputDirectory
         {
