@@ -25,6 +25,7 @@ namespace ImageServiceWPF.JSonTypes
             return settingsObj.ToString();
         }
 
+        /*
         public object FromStringToObj(string toParse)
         {
             //SettingsInfo info = new SettingsInfo
@@ -35,5 +36,6 @@ namespace ImageServiceWPF.JSonTypes
             info.ThumbnailSize = (int)settingsObj["ThumbnailSize"];
             return this.info;
         }
+        */
     }
 }

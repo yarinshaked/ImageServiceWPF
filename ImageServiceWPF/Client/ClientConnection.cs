@@ -14,10 +14,25 @@ namespace ImageServiceWPF.Client
 {
     class ClientConnection : IClientConnection
     {
+        private static ClientConnection clientInstance;
         private TcpClient client;
         private IPEndPoint ep;
         NetworkStream stream;
         JSonParse parser;
+
+        public static ClientConnection Instance
+        {
+            //singleton implementation
+            get
+            {
+                if (clientInstance == null)
+                {
+                    clientInstance = new ClientConnection();
+                    //clientInstance.IsConnected = Instance.Channel
+                }
+                return clientInstance;
+            }
+        }
 
         public void Connect()
         {
