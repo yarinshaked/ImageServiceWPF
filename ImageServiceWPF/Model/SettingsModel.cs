@@ -17,6 +17,7 @@ namespace ImageServiceWPF.Model
         private string outputDirectory;
         private string sourceName;
         private string logName;
+        private string toSend;
         private int thumbnailSize;
 
 
@@ -75,81 +76,6 @@ namespace ImageServiceWPF.Model
                 return this.thumbnailSize;
             }
         }
-
-        public void InfoFromService()
-        {
-            Task task = new Task(() =>
-            {
-                try
-                {
-                    IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-                    TcpClient client = new TcpClient();
-                    client.Connect(ep);
-                    using (NetworkStream stream = client.GetStream())
-                    using (BinaryReader reader = new BinaryReader(stream))
-                    using (BinaryWriter writer = new BinaryWriter(stream))
-                    {
-                        writer.Write("GetAppConfig");
-
-                        //change this to JSON
-                        this.OutputDirectory = reader.ReadString();
-                        this.SourceName = reader.ReadString();
-                        this.LogName = reader.ReadString();
-                        this.ThumbnailSize = reader.ReadInt32();
-                    }
-
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            });
-            task.Start();
-        }
     }
 }
-
-
-
-
-
-        /*
-        private TcpClient client;
-
-        public string ServerIP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ServerPort { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void connect(string ip, int port)
-        {
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(ip), port);
-            client = new TcpClient();
-            client.Connect(ep);
-        }
-
-        public void disconnect()
-        {
-            try
-            {
-                client.Close();
-            } catch(Exception)
-            {
-                throw new Exception();
-            }
-        }
-
-        public string read()
-        {
-            return "";
-            
-        }
-
-        public void write(string command)
-        {
-            NetworkStream stream = client.GetStream();
-            BinaryWriter writer = new BinaryWriter(stream);
-            writer.Write(command);
-        }
-    }
-    */
     

@@ -84,14 +84,13 @@ namespace ImageServiceWPF.Client
             }
         }
 
-        public void Write(object toWrite)
+        public void Write(string toWrite)
         {
             try
             {
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-                    string stringToWrite = parser.FromObjToString(toWrite);
-                    writer.Write(stringToWrite);
+                    writer.Write(toWrite);
                 }
             } catch (Exception e)
             {

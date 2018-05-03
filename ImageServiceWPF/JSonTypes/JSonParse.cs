@@ -8,7 +8,7 @@ namespace ImageServiceWPF.JSonTypes
 {
     interface JSonParse
     {
-        //object FromStringToObj(string toParse);
-        string FromObjToString(object toParse);
+        object FromStringToObj(string toParse);
+        //string FromObjToString(object toParse);
     }
 }

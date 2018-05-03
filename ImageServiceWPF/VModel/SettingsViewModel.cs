@@ -5,7 +5,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ImageServiceWPF.Model;
+using Newtonsoft.Json;
+using Prism.Commands;
 
 namespace ImageServiceWPF.VModel
 {
@@ -15,16 +18,59 @@ namespace ImageServiceWPF.VModel
         private ObservableCollection<string> handlers;
         public event PropertyChangedEventHandler PropertyChanged;
         private string selectedHandler;
+        
         //public ICommand RemoveCommand;
 
         public SettingsViewModel()
         {
+            this.RemoveCommand = new DelegateCommand<object>(this.OnRemove, this.CanRemove);
             this.model = new SettingsModel();
             handlers = new ObservableCollection<string>();
             this.model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 this.NotifyPropertyChanged("VM_" + e.PropertyName);
             };
+        }
+
+        private void PropertyChangedRemove(object sender, PropertyChangedEventArgs e)
+        {
+            var command = this.RemoveCommand as DelegateCommand<object>;
+            command.RaiseCanExecuteChanged();
+        }
+
+        private void OnRemove(object obj)
+        {
+            //get from view what was clicked
+            this.handlers.Remove(selectedHandler);
+            string[] args = { this.selectedHandler };
+            string toSend = JsonConvert.SerializeObject(args);
+            
+            //send to sender
+        }
+
+        private bool CanRemove(object arg)
+        {
+            bool result = this.selectedHandler != null ? true : false;
+            return result;
+        }
+
+        public ICommand RemoveCommand
+        {
+            get; private set;
+        }
+
+        public string SelectedHandler
+        {
+            get
+            {
+                return this.selectedHandler;
+            }
+            set
+            {
+                selectedHandler = value;
+                var command = this.RemoveCommand as DelegateCommand<object>;
+                command.RaiseCanExecuteChanged();
+            }
         }
 
         public string VM_OutputDirectory
@@ -47,53 +93,9 @@ namespace ImageServiceWPF.VModel
             get { return this.model.ThumbnailSize; }
         }
 
-        public string SelectedHandler
-        {
-            set
-            {
-                this.selectedHandler = value;
-                this.NotifyPropertyChanged("SelectedHandler");
-            }
-            get
-            {
-                return this.selectedHandler;
-            }
-        }
-
-        private void OnRemove(object obj)
-        {
-            //send to server that the handler was removed
-            this.handlers.Remove(selectedHandler);
-            //tell view somehow
-        }
-
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
-
-
-
-        /*
-        public string ServerIP
-        {
-            get { return model.ServerIP; }
-            set
-            {
-                model.ServerIP = value;
-                NotifyPropertyChanged("ServerIP");
-            }
-        }
-
-        public int ServerPort
-        {
-            get { return model.ServerPort; }
-            set
-            {
-                model.ServerPort = value;
-                NotifyPropertyChanged("ServerPort");
-            }
-        }
-        */
     }
 }
