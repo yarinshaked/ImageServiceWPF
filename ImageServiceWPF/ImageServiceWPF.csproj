@@ -70,7 +70,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client\ClientConnection.cs" />
-    <Compile Include="Client\CommandMessage.cs" />
     <Compile Include="Client\IClientConnection.cs" />
     <Compile Include="Controls\LogsView.xaml.cs">
       <DependentUpon>LogsView.xaml</DependentUpon>

@@ -20,6 +20,8 @@ namespace ImageServiceWPF.Model
 
         ObservableCollection<string> Handlers {get; set;}
 
+        bool IsConnected { get; set; }
+
         IClientConnection Connection { get; }
         //ObservableCollection<string> handlers { get; set; }
     }

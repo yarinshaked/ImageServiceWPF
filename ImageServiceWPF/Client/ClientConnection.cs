@@ -6,8 +6,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ImageService.Infrastructure.Enums;
 using ImageService.Model;
+using ImageService.Infrastructure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -36,11 +36,6 @@ namespace ImageServiceWPF.Client
             }
         }
 
-        public ClientConnection()
-        {
-            this.Connect();
-        }
-
         public bool Connect()
         {
             try
@@ -50,7 +45,6 @@ namespace ImageServiceWPF.Client
                 client = new TcpClient();
                 client.Connect(ep);
                 isStopped = false;
-                stream = client.GetStream();
                 return result;
 
             }
@@ -76,16 +70,16 @@ namespace ImageServiceWPF.Client
 
         public void Read()
         {
+            
             Task task = new Task(() =>
             {
                 while (!isStopped)
                 {
-                    using (BinaryReader reader = new BinaryReader(stream))
-                    {
-                        string jSonString = reader.ReadString();
-                        CommandMessage msg = CommandMessage.ParseJSON(jSonString);
-                        this.DataReceived?.Invoke(this, msg);
-                    }
+                    stream = client.GetStream();
+                    BinaryReader reader = new BinaryReader(stream);
+                    string jSonString = reader.ReadString();
+                    CommandMessage msg = CommandMessage.ParseJSON(jSonString);
+                    this.DataReceived?.Invoke(this, msg);
                 }
             });
             task.Start();

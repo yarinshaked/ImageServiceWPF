@@ -25,11 +25,18 @@ namespace ImageServiceWPF.VModel
         {
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove, this.CanRemove);
             this.model = new SettingsModel();
-           
             this.model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 this.NotifyPropertyChanged("VM_" + e.PropertyName);
             };
+        }
+
+        public bool VM_IsConnected
+        {
+            get
+            {
+                return this.model.IsConnected;
+            }
         }
 
         private void PropertyChangedRemove(object sender, PropertyChangedEventArgs e)

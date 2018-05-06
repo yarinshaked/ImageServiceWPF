@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
 using ImageServiceWPF.Client;
 using Newtonsoft.Json;
@@ -26,11 +27,26 @@ namespace ImageServiceWPF.Model
         private int thumbnailSize;
         private string selectedHandler;
         private IClientConnection connection;
+        private bool isConnected;
 
         public SettingsModel()
         {
             handlers = new ObservableCollection<string>();
             this.Connection.DataReceived += OnDataReceived;
+            isConnected = this.Connection.Connect();
+            this.Connection.Read();
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return this.isConnected;
+            }
+            set
+            {
+                this.isConnected = value;
+            }
         }
 
         public IClientConnection Connection
@@ -55,7 +71,7 @@ namespace ImageServiceWPF.Model
 
         public void OnDataReceived(object sender, CommandMessage message)
         {
-            if (message.CommandID.Equals(CommandEnum.GetConfigCommand.ToString()))
+            //if (message.CommandID.Equals(CommandEnum.GetConfigCommand.ToString()))
             {
                 this.OutputDirectory = (string) message.CommandArgs["OutputDirectory"];
                 this.SourceName = (string) message.CommandArgs["SourceName"];

@@ -1,4 +1,5 @@
-﻿using ImageService.Model;
+﻿using ImageService.Infrastructure;
+using ImageService.Model;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

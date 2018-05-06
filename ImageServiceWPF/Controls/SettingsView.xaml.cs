@@ -29,9 +29,5 @@ namespace ImageServiceWPF.Controls
             this.DataContext = vm;
         }
 
-        public void btnRemoveClick(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
