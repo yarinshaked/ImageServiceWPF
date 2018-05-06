@@ -7,16 +7,12 @@
         mc:Ignorable="d"
         Title="Image Service" Height="450" Width="800">
     <Grid>
-        <TabControl>
-            <TabItem Header="Settings">
-                <controls:SettingsView>
-
-                </controls:SettingsView>
+        <TabControl TabStripPlacement="Top" VerticalAlignment="Stretch">
+            <TabItem Header="Settings" Height="Auto">
+                <controls:SettingsView/>
             </TabItem>
             <TabItem Header="Logs">
-                <controls:LogsView>
-
-                </controls:LogsView>
+                <controls:LogsView/>
             </TabItem>
         </TabControl>
     </Grid>

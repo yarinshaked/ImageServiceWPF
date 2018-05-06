@@ -7,9 +7,9 @@ using ImageServiceWPF.Model;
 
 namespace ImageServiceWPF.VModel
 {
-    class LogsViewModel : ViewModel
+    class LogsViewModel : ILogsViewModel
     {
-        private IModel model;
+        private ILogsModel model;
         public LogsViewModel()
         {
             model = new LogsModel();

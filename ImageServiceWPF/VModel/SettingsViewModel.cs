@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
 using ImageService.Model;
 using ImageServiceWPF.Model;
@@ -78,6 +79,11 @@ namespace ImageServiceWPF.VModel
         public int VM_ThumbnailSize
         {
             get { return this.model.ThumbnailSize; }
+        }
+
+        public string VM_SelectedHandler
+        {
+            get { return this.model.SelectedHandler; }
         }
 
         public void NotifyPropertyChanged(string propName)
