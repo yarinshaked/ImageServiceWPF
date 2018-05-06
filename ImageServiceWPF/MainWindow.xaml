@@ -10,7 +10,7 @@
         <TabControl>
             <TabItem Header="Settings">
                 <controls:SettingsView>
-                    
+
                 </controls:SettingsView>
             </TabItem>
             <TabItem Header="Logs">

@@ -6,7 +6,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using ImageServiceWPF.JSonTypes;
+using ImageService.Infrastructure.Enums;
+using ImageService.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -14,11 +15,12 @@ namespace ImageServiceWPF.Client
 {
     class ClientConnection : IClientConnection
     {
+        public event EventHandler<CommandMessage> DataReceived;
         private static ClientConnection clientInstance;
         private TcpClient client;
         private IPEndPoint ep;
+        private bool isStopped;
         NetworkStream stream;
-        JSonParse parser;
 
         public static ClientConnection Instance
         {
@@ -34,23 +36,29 @@ namespace ImageServiceWPF.Client
             }
         }
 
-        public void Connect()
+        public ClientConnection()
         {
-            Task task = new Task(() =>
+            this.Connect();
+        }
+
+        public bool Connect()
+        {
+            try
             {
-                try
-                {
-                    ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
-                    client = new TcpClient();
-                    client.Connect(ep);
-                    stream = client.GetStream();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            });
-            task.Start();
+                bool result = true;
+                ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
+                client = new TcpClient();
+                client.Connect(ep);
+                isStopped = false;
+                stream = client.GetStream();
+                return result;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public void Disconnect()
@@ -58,44 +66,44 @@ namespace ImageServiceWPF.Client
             try
             {
                 client.Close();
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public object Read()
-        {
-            try
-            {
-                using (BinaryReader reader = new BinaryReader(stream))
-                {
-                    string jSonString = reader.ReadString();
-                    //if log or service
-                    //parser = new SettingsInfo()
-                    //parser = new LogInfo()
-                    return parser.FromStringToObj(jSonString);
-                }
+                isStopped = true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return null;
             }
         }
 
-        public void Write(string toWrite)
+        public void Read()
         {
-            try
+            Task task = new Task(() =>
+            {
+                while (!isStopped)
+                {
+                    using (BinaryReader reader = new BinaryReader(stream))
+                    {
+                        string jSonString = reader.ReadString();
+                        CommandMessage msg = CommandMessage.ParseJSON(jSonString);
+                        this.DataReceived?.Invoke(this, msg);
+                    }
+                }
+            });
+            task.Start();
+
+        }
+
+        public void Write(CommandReceivedEventArgs e)
+        {
+            Task task = new Task(() =>
             {
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-                    writer.Write(toWrite);
+
+                    string toSend = JsonConvert.SerializeObject(e);
+                    writer.Write(toSend);
                 }
-            } catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            });
+            task.Start();
         }
     }
 }

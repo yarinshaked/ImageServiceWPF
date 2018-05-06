@@ -16,18 +16,28 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" MinWidth="164"/>
+                <ColumnDefinition Width="Auto" MinWidth="91"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="Output Directory:"></TextBlock>
             <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Text="Source Name:"></TextBlock>
             <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold" Text="Log Name:"></TextBlock>
             <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Text="Thumbnail Size:"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_OutputDirectory}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_SourceName}"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_LogName}"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_ThumbnailSize}"></TextBlock>
         </Grid>
         <StackPanel>
-            <Button x:Name="Remove" Content="Remove" Width="*" Height="Auto"></Button>
-            <ListBox x:Name="HandlerList" Width="*">
-                
+            <Button x:Name="Remove"
+                    Content="Remove" 
+                    Width="*" 
+                    Height="Auto"
+                    Command="{Binding RemoveCommand}">
+            </Button>
+            <ListBox x:Name="HandlerList" Width="*"
+                     ItemsSource="{Binding SettingsViewModel.handlers, Mode=TwoWay}"
+                     SelectedItem="{Binding SettingsModel.SelectedHandler, Mode=TwoWay}">
             </ListBox>
         </StackPanel>
     </StackPanel>

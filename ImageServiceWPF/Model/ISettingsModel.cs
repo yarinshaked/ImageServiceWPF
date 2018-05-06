@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageServiceWPF.Client;
 
 namespace ImageServiceWPF.Model
 {
@@ -15,7 +16,11 @@ namespace ImageServiceWPF.Model
         string SourceName { get; set; }
         string LogName { get; set; }
         int ThumbnailSize { get; set; }
-        string ToSend { get; set; }
+        string SelectedHandler { get; set; }
+
+        ObservableCollection<string> Handlers {get; set;}
+
+        IClientConnection Connection { get; }
         //ObservableCollection<string> handlers { get; set; }
     }
 }

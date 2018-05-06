@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ImageService.Infrastructure.Enums;
+using ImageService.Model;
 using ImageServiceWPF.Model;
 using Newtonsoft.Json;
 using Prism.Commands;
@@ -15,17 +17,14 @@ namespace ImageServiceWPF.VModel
     class SettingsViewModel : ISettingsViewModel
     {
         private ISettingsModel model;
-        private ObservableCollection<string> handlers;
-        public event PropertyChangedEventHandler PropertyChanged;
-        private string selectedHandler;
         
-        //public ICommand RemoveCommand;
-
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public SettingsViewModel()
         {
             this.RemoveCommand = new DelegateCommand<object>(this.OnRemove, this.CanRemove);
             this.model = new SettingsModel();
-            handlers = new ObservableCollection<string>();
+           
             this.model.PropertyChanged += delegate (object sender, PropertyChangedEventArgs e)
             {
                 this.NotifyPropertyChanged("VM_" + e.PropertyName);
@@ -41,36 +40,24 @@ namespace ImageServiceWPF.VModel
         private void OnRemove(object obj)
         {
             //get from view what was clicked
-            this.handlers.Remove(selectedHandler);
-            string[] args = { this.selectedHandler };
-            string toSend = JsonConvert.SerializeObject(args);
+            this.model.Handlers.Remove(this.model.SelectedHandler);
+            string[] args = { this.model.SelectedHandler };
+            CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs((int) CommandEnum.CloseCommand, args, "" );
+
+            this.model.Connection.Write(eventArgs);
             
             //send to sender
         }
 
         private bool CanRemove(object arg)
         {
-            bool result = this.selectedHandler != null ? true : false;
+            bool result = this.model.SelectedHandler != null ? true : false;
             return result;
         }
 
         public ICommand RemoveCommand
         {
             get; private set;
-        }
-
-        public string SelectedHandler
-        {
-            get
-            {
-                return this.selectedHandler;
-            }
-            set
-            {
-                selectedHandler = value;
-                var command = this.RemoveCommand as DelegateCommand<object>;
-                command.RaiseCanExecuteChanged();
-            }
         }
 
         public string VM_OutputDirectory

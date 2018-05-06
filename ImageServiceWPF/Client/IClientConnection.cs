@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using ImageService.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,10 @@ namespace ImageServiceWPF.Client
 {
     interface IClientConnection
     {
-        void Connect();
+        bool Connect();
         void Disconnect();
-        void Write(object toWrite);
-        object Read();
+        void Write(CommandReceivedEventArgs e);
+        void Read();
+        public event EventHandler<CommandMessage> DataReceived;
     }
 }
