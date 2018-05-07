@@ -86,14 +86,17 @@ namespace ImageServiceWPF.Client
 
             Task<CommandMessage> task = new Task<CommandMessage>(() =>
             {
-                //while (isConnected)
-                //{
-                    stream = client.GetStream();
-                    BinaryReader reader = new BinaryReader(stream);
-                    string jSonString = reader.ReadString();
-                    CommandMessage msg = CommandMessage.ParseJSON(jSonString);
-                    return msg;
-                //}
+
+                stream = client.GetStream();
+                StreamReader reader = new StreamReader(stream);
+                string jSonString = reader.ReadLine();
+                while (reader.Peek() > 0)
+                {
+                    jSonString += reader.ReadLine();
+                }
+                CommandMessage msg = CommandMessage.ParseJSON(jSonString);
+                return msg;
+
             });
             task.Start();
             this.DataReceived?.Invoke(this, task.Result);
@@ -103,11 +106,12 @@ namespace ImageServiceWPF.Client
         public void Write(CommandReceivedEventArgs e)
         {
             Task task = new Task(() =>
-            { 
+            {
                 stream = client.GetStream();
-                BinaryWriter writer = new BinaryWriter(stream);
+                StreamWriter writer = new StreamWriter(stream);
                 string toSend = JsonConvert.SerializeObject(e);
-                writer.Write(toSend);
+                writer.WriteLine(toSend);
+                writer.Flush();
 
             });
             task.Start();
