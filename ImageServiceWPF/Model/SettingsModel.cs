@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
+using ImageService.Model;
 using ImageServiceWPF.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -34,19 +35,9 @@ namespace ImageServiceWPF.Model
             handlers = new ObservableCollection<string>();
             this.Connection.DataReceived += OnDataReceived;
             isConnected = this.Connection.Connect();
-            this.Connection.Read();
-        }
-
-        public bool IsConnected
-        {
-            get
-            {
-                return this.isConnected;
-            }
-            set
-            {
-                this.isConnected = value;
-            }
+            CommandReceivedEventArgs request = new CommandReceivedEventArgs((int) CommandEnum.GetConfigCommand, null, null);
+            //this.Connection.Write(request);
+            //this.Connection.Read();
         }
 
         public IClientConnection Connection

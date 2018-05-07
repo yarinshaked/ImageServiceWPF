@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
         <Label HorizontalAlignment="Center" Content="Settings" FontSize="25" FontWeight="Bold" Foreground="Blue"/>
-        <Grid>
+        <Grid TextBlock.FontSize="14">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -19,14 +19,14 @@
                 <ColumnDefinition Width="Auto" MinWidth="164"/>
                 <ColumnDefinition Width="Auto" MinWidth="91"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold" Text="Output Directory:"></TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold" Text="Source Name:"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold" Text="Log Name:"></TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold" Text="Thumbnail Size:"></TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_OutputDirectory}"></TextBlock>
-            <TextBlock Grid.Row="1" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_SourceName}"></TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_LogName}"></TextBlock>
-            <TextBlock Grid.Row="3" Grid.Column="1" FontWeight="Bold" Text="{Binding SettingsViewModel.VM_ThumbnailSize}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Padding ="3" Margin ="3" FontWeight="Bold" Text="Output Directory:"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0" Padding ="3" Margin ="3" FontWeight="Bold" Text="Source Name:"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" Padding ="3" Margin ="3" FontWeight="Bold" Text="Log Name:"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" Padding ="3" Margin ="3" FontWeight="Bold" Text="Thumbnail Size:"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Padding ="3" Margin ="3" FontWeight="Bold" Text="{Binding VM_OutputDirectory}"></TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Padding ="3" Margin ="3" FontWeight="Bold" Text="{Binding VM_SourceName}"></TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" Padding ="3" Margin ="3" FontWeight="Bold" Text="{Binding VM_LogName}"></TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="1" Padding ="3" Margin ="3" FontWeight="Bold" Text="{Binding VM_ThumbnailSize}"></TextBlock>
         </Grid>
         <StackPanel>
             <Button x:Name="Remove"

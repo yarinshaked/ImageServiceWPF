@@ -77,13 +77,17 @@
     <Compile Include="Controls\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\IMainWindowModel.cs" />
+    <Compile Include="Model\MainWindowModel.cs" />
     <Compile Include="Model\ILogsModel.cs" />
     <Compile Include="Model\ISettingsModel.cs" />
     <Compile Include="Model\LogsModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="VModel\ILogsViewModel.cs" />
+    <Compile Include="VModel\IMainWindowViewModel.cs" />
     <Compile Include="VModel\ISettingsViewModel.cs" />
     <Compile Include="VModel\LogsViewModel.cs" />
+    <Compile Include="VModel\MainWindowViewModel.cs" />
     <Compile Include="VModel\SettingsViewModel.cs" />
     <Page Include="Controls\LogsView.xaml">
       <SubType>Designer</SubType>

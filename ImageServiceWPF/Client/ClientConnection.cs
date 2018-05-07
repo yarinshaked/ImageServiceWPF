@@ -21,6 +21,7 @@ namespace ImageServiceWPF.Client
         private IPEndPoint ep;
         private bool isStopped;
         NetworkStream stream;
+        private bool isConnected;
 
         public static ClientConnection Instance
         {
@@ -36,6 +37,18 @@ namespace ImageServiceWPF.Client
             }
         }
 
+        public bool IsConnected
+        {
+            get
+            {
+                return this.isConnected;
+            }
+            set
+            {
+                this.isConnected = value;
+            }
+        }
+
         public bool Connect()
         {
             try
@@ -44,7 +57,7 @@ namespace ImageServiceWPF.Client
                 ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8000);
                 client = new TcpClient();
                 client.Connect(ep);
-                isStopped = false;
+                isConnected = true;
                 return result;
 
             }
@@ -60,7 +73,7 @@ namespace ImageServiceWPF.Client
             try
             {
                 client.Close();
-                isStopped = true;
+                isConnected = false;
             }
             catch (Exception e)
             {
@@ -70,17 +83,17 @@ namespace ImageServiceWPF.Client
 
         public void Read()
         {
-            
+
             Task task = new Task(() =>
             {
-                while (!isStopped)
-                {
+                //while (isConnected)
+                //{
                     stream = client.GetStream();
                     BinaryReader reader = new BinaryReader(stream);
                     string jSonString = reader.ReadString();
                     CommandMessage msg = CommandMessage.ParseJSON(jSonString);
                     this.DataReceived?.Invoke(this, msg);
-                }
+                //}
             });
             task.Start();
 
@@ -89,13 +102,12 @@ namespace ImageServiceWPF.Client
         public void Write(CommandReceivedEventArgs e)
         {
             Task task = new Task(() =>
-            {
-                using (BinaryWriter writer = new BinaryWriter(stream))
-                {
+            { 
+                stream = client.GetStream();
+                BinaryWriter writer = new BinaryWriter(stream);
+                string toSend = JsonConvert.SerializeObject(e);
+                writer.Write(toSend);
 
-                    string toSend = JsonConvert.SerializeObject(e);
-                    writer.Write(toSend);
-                }
             });
             task.Start();
         }

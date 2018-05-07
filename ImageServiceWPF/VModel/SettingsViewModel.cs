@@ -31,26 +31,12 @@ namespace ImageServiceWPF.VModel
             };
         }
 
-        public bool VM_IsConnected
-        {
-            get
-            {
-                return this.model.IsConnected;
-            }
-        }
-
-        private void PropertyChangedRemove(object sender, PropertyChangedEventArgs e)
-        {
-            var command = this.RemoveCommand as DelegateCommand<object>;
-            command.RaiseCanExecuteChanged();
-        }
-
         private void OnRemove(object obj)
         {
             //get from view what was clicked
             this.model.Handlers.Remove(this.model.SelectedHandler);
             string[] args = { this.model.SelectedHandler };
-            CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs((int) CommandEnum.CloseCommand, args, "" );
+            CommandReceivedEventArgs eventArgs = new CommandReceivedEventArgs((int) CommandEnum.CloseCommand, args, null);
 
             this.model.Connection.Write(eventArgs);
             
