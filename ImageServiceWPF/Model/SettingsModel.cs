@@ -36,8 +36,8 @@ namespace ImageServiceWPF.Model
             this.Connection.DataReceived += OnDataReceived;
             isConnected = this.Connection.Connect();
             CommandReceivedEventArgs request = new CommandReceivedEventArgs((int) CommandEnum.GetConfigCommand, null, null);
-            //this.Connection.Write(request);
-            //this.Connection.Read();
+            this.Connection.Write(request);
+            this.Connection.Read();
         }
 
         public IClientConnection Connection
@@ -57,12 +57,13 @@ namespace ImageServiceWPF.Model
             set
             {
                 this.handlers = value;
+                this.NotifyPropertyChanged("Handlers");
             }
         }
 
         public void OnDataReceived(object sender, CommandMessage message)
         {
-            //if (message.CommandID.Equals(CommandEnum.GetConfigCommand.ToString()))
+            if (message.CommandID.Equals((int) CommandEnum.GetConfigCommand))
             {
                 this.OutputDirectory = (string) message.CommandArgs["OutputDirectory"];
                 this.SourceName = (string) message.CommandArgs["SourceName"];
@@ -72,7 +73,7 @@ namespace ImageServiceWPF.Model
                 string[] array = arr.Select(c => (string)c).ToArray();
                 foreach (var item in array)
                 {
-                    this.Handlers.Add(item);
+                    this.handlers.Add(item);
                 }
                 
             }

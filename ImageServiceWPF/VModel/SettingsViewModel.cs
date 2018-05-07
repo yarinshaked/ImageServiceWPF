@@ -31,6 +31,14 @@ namespace ImageServiceWPF.VModel
             };
         }
 
+        /*
+        private void PropertyChangedRemove(object sender, PropertyChangedEventArgs e)
+        {
+            var command = this.RemoveCommand as DelegateCommand<object>;
+            command.RaiseCanExecuteChanged();
+        }
+        */
+
         private void OnRemove(object obj)
         {
             //get from view what was clicked
@@ -45,8 +53,11 @@ namespace ImageServiceWPF.VModel
 
         private bool CanRemove(object arg)
         {
-            bool result = this.model.SelectedHandler != null ? true : false;
-            return result;
+            if (string.IsNullOrEmpty(this.model.SelectedHandler))
+            {
+                return false;
+            }
+            return true;
         }
 
         public ICommand RemoveCommand
@@ -77,11 +88,23 @@ namespace ImageServiceWPF.VModel
         public string VM_SelectedHandler
         {
             get { return this.model.SelectedHandler; }
+            set
+            {
+                this.model.SelectedHandler = value;
+                var command = this.RemoveCommand as DelegateCommand<object>;
+                command.RaiseCanExecuteChanged();
+            }
         }
 
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+
+        public ObservableCollection<string> VM_Handlers
+        {
+            get { return this.model.Handlers; }
+            set { this.model.Handlers = value; }
         }
     }
 }

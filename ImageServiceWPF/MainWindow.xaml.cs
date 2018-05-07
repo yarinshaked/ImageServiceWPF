@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Markup;
+using ImageServiceWPF.VModel;
 
 namespace ImageServiceWPF
 {
@@ -24,6 +25,7 @@ namespace ImageServiceWPF
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel();
         }
     }
 }

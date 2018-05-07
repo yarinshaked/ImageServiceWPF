@@ -22,11 +22,11 @@ namespace ImageServiceWPF.Controls
     public partial class SettingsView : UserControl
     {
         private ISettingsViewModel vm;
+
         public SettingsView()
         {
             InitializeComponent();
-            vm = new SettingsViewModel();
-            this.DataContext = vm;
+            this.DataContext = new SettingsViewModel();
         }
 
     }

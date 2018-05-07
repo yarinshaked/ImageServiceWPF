@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ImageService.Infrastructure;
+using ImageServiceWPF.Client;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -18,8 +20,16 @@ namespace ImageServiceWPF.Model
         public LogsModel()
         {
             this.logMessages = new ObservableCollection<string>();
+            this.Connection.DataReceived += OnDataReceived;
         }
 
+        public IClientConnection Connection
+        {
+            get
+            {
+                return ClientConnection.Instance;
+            }
+        }
         public ObservableCollection<string> LogMessages
         {
             get { return this.logMessages; }
@@ -29,32 +39,13 @@ namespace ImageServiceWPF.Model
             }
         }
 
-        
-        /*
-        public string ServerIP { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ServerPort { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public void connect(string ip, int port)
+        public void OnDataReceived(object sender, CommandMessage message)
         {
-        throw new NotImplementedException();
+
         }
 
-        public void disconnect()
-        {
-        throw new NotImplementedException();
-        }
-
-        public string read()
-        {
-        throw new NotImplementedException();
-        }
-
-        public void write(string command)
-        {
-        throw new NotImplementedException();
-        }
-        */
-
+      
+    
 
     }
 }

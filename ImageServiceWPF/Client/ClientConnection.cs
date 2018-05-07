@@ -84,7 +84,7 @@ namespace ImageServiceWPF.Client
         public void Read()
         {
 
-            Task task = new Task(() =>
+            Task<CommandMessage> task = new Task<CommandMessage>(() =>
             {
                 //while (isConnected)
                 //{
@@ -92,10 +92,11 @@ namespace ImageServiceWPF.Client
                     BinaryReader reader = new BinaryReader(stream);
                     string jSonString = reader.ReadString();
                     CommandMessage msg = CommandMessage.ParseJSON(jSonString);
-                    this.DataReceived?.Invoke(this, msg);
+                    return msg;
                 //}
             });
             task.Start();
+            this.DataReceived?.Invoke(this, task.Result);
 
         }
 

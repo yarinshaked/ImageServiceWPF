@@ -36,8 +36,8 @@
                     Command="{Binding RemoveCommand}">
             </Button>
             <ListBox x:Name="HandlerList" Width="Auto"
-                     ItemsSource="{Binding SettingsViewModel.handlers, Mode=TwoWay}"
-                     SelectedItem="{Binding SettingsViewModel.VM_SelectedHandler, Mode=TwoWay}">
+                     ItemsSource="{Binding VM_Handlers, Mode=TwoWay}"
+                     SelectedItem="{Binding VM_SelectedHandler, Mode=TwoWay}">
             </ListBox>
         </StackPanel>
     </StackPanel>

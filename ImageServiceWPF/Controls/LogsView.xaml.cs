@@ -21,12 +21,10 @@ namespace ImageServiceWPF.Controls
     /// </summary>
     public partial class LogsView : UserControl
     {
-        private LogsViewModel vm;
         public LogsView()
         {
             InitializeComponent();
-            vm = new LogsViewModel();
-            this.DataContext = vm;
+            this.DataContext = new LogsViewModel();
         }
     }
 }
